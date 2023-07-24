@@ -6,10 +6,15 @@ const Login = () => {
   return (
     <div style={{
         display:'flex',
+        flexDirection:'column',
         justifyContent:'center',
-        paddingTop:'200px'
+        alignItems:'center',
+        paddingTop:'100px'
     }}>
-        <Card variant="outlined" style={{
+        <h2>Welcome Back,Please login</h2>
+        <Card 
+            variant="outlined"
+            style={{
             padding:'3rem',
             width:'300px',
             display:'flex',
@@ -17,12 +22,12 @@ const Login = () => {
             justifyContent:'center',
             alignItems:'center'
         }}>
-            <h4>Welcome Back,Please login</h4>
             <div>
                 <TextField id="username" label="Email" variant="outlined" />
-                <br />
+                <br /><br />
                 <TextField id="password" label="Password" variant="outlined" />
             </div>
+            <br />
             <div style={{
                 marginRight:'138px'
             }}>

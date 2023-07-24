@@ -4,6 +4,8 @@ import './App.css'
 import Signin from './Components/Signin'
 import Navbar from './Components/Navbar'
 import Login from './Components/Login'
+import AddCourse from './Components/AddCourse';
+import Courses from './Components/Courses';
 function App() {
   return (
     <div style={{
@@ -14,6 +16,8 @@ function App() {
       <Router>
         <Navbar/>
         <Routes>
+          <Route path='/courses' element = {<Courses/>}/>
+          <Route path="/addCourse" element = {<AddCourse/>}/>
           <Route path="/login" element={<Login />}/>
           <Route path="/signin" element={<Signin />}/>
         </Routes>

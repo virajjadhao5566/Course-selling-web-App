@@ -11,7 +11,6 @@ const Signin = () => {
             justifyContent: 'center',
             paddingTop: '200px'
         }}>
-            {password}
             <Card variant="outlined" style={{
                 padding: '3rem',
                 width: '300px',
@@ -46,8 +45,6 @@ const Signin = () => {
                     <Button
                         variant="contained"
                         onClick={() => {
-                            let username = document.getElementById('username').value;
-                            let password = document.getElementById('password').value;
                             fetch('http://localhost:3000/admin/signup', {
                                 method: "POST",
                                 body: JSON.stringify({
@@ -60,6 +57,7 @@ const Signin = () => {
                             }).then((response)=>{
                                 response.json().then((data)=>{
                                     localStorage.setItem("token",data.token)
+                                    window.location = "/"
                                 })
                             })
                         }}

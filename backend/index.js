@@ -56,6 +56,12 @@ let authJWT = (req,res,next) =>{
 mongoose.connect('mongodb+srv://virajjadhao85:Vir%40j12345@cluster0.hewrcpu.mongodb.net/courses', { useNewUrlParser: true, useUnifiedTopology: true});
 
 // Admin routes
+app.get('/admin/me',authJWT,(req,res)=>{
+  res.json({
+    username:req.user.username
+  })
+})
+
 app.post('/admin/signup', async (req, res) => {
   // logic to sign up admin
   const {username,password} = req.body

@@ -6,6 +6,7 @@ import Navbar from './Components/Navbar'
 import Login from './Components/Login'
 import AddCourse from './Components/AddCourse';
 import Courses from './Components/Courses';
+import Course from './Components/Course';
 function App() {
   return (
     <div style={{
@@ -17,6 +18,7 @@ function App() {
         <Navbar/>
         <Routes>
           <Route path='/courses' element = {<Courses/>}/>
+          <Route path='/course/:courseId' element = {<Course/>}></Route>
           <Route path="/addCourse" element = {<AddCourse/>}/>
           <Route path="/login" element={<Login />}/>
           <Route path="/signin" element={<Signin />}/>

@@ -1,13 +1,6 @@
 import { Button, Card, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import {
-    RecoilRoot,
-    atom,
-    selector,
-    useRecoilState,
-    useRecoilValue,
-  } from 'recoil';
 
 const Course = () => {
     let courseId = useParams();
@@ -160,8 +153,3 @@ const UpdateCourse = (props) => {
     )
 }
 export default Course
-
-const textState = atom({
-    key: 'textState', // unique ID (with respect to other atoms/selectors)
-    default: '', // default value (aka initial value)
-});

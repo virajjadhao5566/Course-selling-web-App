@@ -6,6 +6,9 @@ const { SECRET } = require("../middlewares/auth")
 const { authJWT } = require("../middlewares/auth")
 
 const router = express.Router()
+let generateToken = (payload) => {
+    return jwt.sign(payload, SECRET, { expiresIn: '1h' })
+}
 
 router.get("/me", authenticateJwt, async (req, res) => {
     const admin = await Admin.findOne({ username: req.user.username });

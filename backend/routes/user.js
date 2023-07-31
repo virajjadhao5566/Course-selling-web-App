@@ -1,9 +1,12 @@
 const express = require('express')
-const {authJWT,SECRET} = require("../middlewares/auth")
-const {User,Course,Admin} = require("../db");
+const { authJWT, SECRET } = require("../middlewares/auth")
+const { User, Course, Admin } = require("../db");
 const { model } = require('mongoose');
 
 const router = express.Router()
+let generateToken = (payload) => {
+    return jwt.sign(payload, SECRET, { expiresIn: '1h' })
+}
 
 router.post('/signup', async (req, res) => {
     // logic to sign up user

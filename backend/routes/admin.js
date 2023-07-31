@@ -10,7 +10,7 @@ let generateToken = (payload) => {
     return jwt.sign(payload, SECRET, { expiresIn: '1h' })
 }
 
-router.get("/me", authenticateJwt, async (req, res) => {
+router.get("/me", authJWT, async (req, res) => {
     const admin = await Admin.findOne({ username: req.user.username });
     if (!admin) {
         res.status(403).json({ msg: "Admin doesnt exist" })

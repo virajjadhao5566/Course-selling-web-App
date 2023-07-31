@@ -60,7 +60,7 @@ router.post('/courses/:courseId', authJWT, async (req, res) => {
     }
 });
 
-app.get('/purchasedCourses', authJWT, async (req, res) => {
+router.get('/purchasedCourses', authJWT, async (req, res) => {
     // logic to view purchased courses
     const user = await User.findOne({ username: req.user.username }).populate('purchasedCourses')
     if (user) {
@@ -70,6 +70,4 @@ app.get('/purchasedCourses', authJWT, async (req, res) => {
     }
 });
 
-module.exports = {
-    router
-}
+module.exports = router

@@ -1,94 +1,79 @@
-import React, { useState } from 'react'
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Card from '@mui/material/Card';
-const AddCourse = () => {
-    const [title,setTitle] = useState("")
-    const [description,setDescription] = useState("")
-    const [price,setPrice] = useState("")
-    const [image,setImage] = useState("")
-    return (
-        <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            paddingTop: '200px'
-        }}>
-            <Card variant="outlined" style={{
-                padding: '3rem',
-                width: '300px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
-                <h2>Welcome SignIn Please</h2>
-                <div>
-                    <TextField
-                        id="coursename"
-                        label="Course Name"
-                        variant="outlined"
-                        onChange={(event) => {
-                            setTitle(event.target.value)
-                        }}
-                    />
-                    <br />
-                    <TextField
-                        id="description"
-                        label="Description"
-                        variant="outlined"
-                        onChange={(event) => {
-                            setDescription(event.target.value)
-                        }}
-                    />
-                    <br />
-                    <TextField
-                        id="price"
-                        label="Price"
-                        variant="outlined"
-                        onChange={(event) => {
-                            setPrice(event.target.value)
-                        }}
-                    />
-                    <br />
-                    <TextField
-                        id="imageLink"
-                        label="ImageLink"
-                        variant="outlined"
-                        onChange={(event) => {
-                            setImage(event.target.value)
-                        }}
-                    />
-                </div>
-                <div style={{
-                    marginRight: '138px'
-                }}>
-                    <Button
-                        variant="contained"
-                        onClick={() => {
-                            fetch('http://localhost:3000/admin/courses', {
-                                method: "POST",
-                                body: JSON.stringify({
-                                    title,
-                                    description,
-                                    price,
-                                    image:"",
-                                    published:"true"
-                                }),
-                                headers: {
-                                    "Content-type": "application/json",
-                                    "Authorization": "Bearer " + localStorage.getItem("token")
-                                }
-                            }).then((response) => {
-                                response.json().then((data) => {
-                                    alert("Course Added!!!")
-                                })
-                            })
-                        }}
-                    >ADD</Button>
-                </div>
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import {Card} from "@mui/material";
+import {useState} from "react";
+import axios from "axios";
+
+function AddCourse() {
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [image, setImage] = useState("");
+    const [price, setPrice] = useState(0)
+
+    return <div style={{display: "flex", justifyContent: "center", minHeight: "80vh", justifyContent: "center", flexDirection: "column"}}>
+        <div style={{display: "flex", justifyContent: "center"}}>
+            <Card varint={"outlined"} style={{width: 400, padding: 20, marginTop: 30, height: "100%"}}>
+                <TextField
+                    style={{marginBottom: 10}}
+                    onChange={(e) => {
+                        setTitle(e.target.value)
+                    }}
+                    fullWidth={true}
+                    label="Title"
+                    variant="outlined"
+                />
+
+                <TextField
+                    style={{marginBottom: 10}}
+                    onChange={(e) => {
+                        setDescription(e.target.value)
+                    }}
+                    fullWidth={true}
+                    label="Description"
+                    variant="outlined"
+                />
+
+                <TextField
+                    style={{marginBottom: 10}}
+                    onChange={(e) => {
+                        setImage(e.target.value)
+                    }}
+                    fullWidth={true}
+                    label="Image link"
+                    variant="outlined"
+                />
+
+                <TextField
+                    style={{marginBottom: 10}}
+                    onChange={(e) => {
+                        setPrice(e.target.value)
+                    }}
+                    fullWidth={true}
+                    label="Price"
+                    variant="outlined"
+                />
+
+                <Button
+                    size={"large"}
+                    variant="contained"
+                    onClick={async () => {
+                        await axios.post("http://localhost:3000/admin/courses", {
+                            title: title,
+                                description: description,
+                                imageLink: image,
+                                published: true,
+                                price
+                        }, {
+                            headers: {
+                                "Authorization": "Bearer " + localStorage.getItem("token")
+                            }
+                        });
+                        alert("Added course!");
+                    }}
+                > Add course</Button>
             </Card>
         </div>
-    )
+    </div>
 }
 
-export default AddCourse
+export default AddCourse;

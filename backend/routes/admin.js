@@ -67,7 +67,7 @@ router.put('/courses/:courseId', authJWT, async (req, res) => {
     }
 });
 
-router.get('/admin/courses', authJWT, async (req, res) => {
+router.get('/courses', authJWT, async (req, res) => {
     // logic to get all courses
     const courses = await Course.find({})
     res.json({ courses })

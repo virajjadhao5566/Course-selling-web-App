@@ -4,7 +4,7 @@ import {Card, Typography} from "@mui/material";
 import {useState} from "react";
 import axios from "axios";
 
-function SignIn() {
+function Signin() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -55,10 +55,10 @@ function SignIn() {
                         window.location = "/"
                     }}
 
-                > Signup</Button>
+                > SignIn</Button>
             </Card>
         </div>
     </div>
 }
 
-export default SignIn;
+export default Signin;

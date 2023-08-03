@@ -78,7 +78,7 @@ function Navbar() {
                     <Button
                         variant={"contained"}
                         onClick={() => {
-                            navigate("/signup")
+                            navigate("/signin")
                         }}
                     >Signup</Button>
                 </div>
@@ -86,7 +86,7 @@ function Navbar() {
                     <Button
                         variant={"contained"}
                         onClick={() => {
-                            navigate("/signin")
+                            navigate("/login")
                         }}
                     >Signin</Button>
                 </div>

@@ -10,6 +10,7 @@ import Course from './Components/Course';
 import { RecoilRoot, useSetRecoilState } from 'recoil';
 import { userState } from './store/atoms/user';
 import { BASE_URL } from './config';
+import { Landing } from './Components/Landing';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/addCourse" element={<AddCourse />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signin" element={<Signin />} />
+            <Route path="/" element= {<Landing/>} />
           </Routes>
         </Router>
       </div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css'
 import Signin from './Components/Signin'
@@ -7,7 +7,9 @@ import Login from './Components/Login'
 import AddCourse from './Components/AddCourse';
 import Courses from './Components/Courses';
 import Course from './Components/Course';
-import RecoilRoot from 'recoil'
+import { RecoilRoot, useSetRecoilState } from 'recoil';
+import { userState } from './store/atoms/user';
+import { BASE_URL } from './config';
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
       }}>
         <Router>
           <Navbar />
+          <InitUser />
           <Routes>
             <Route path='/courses' element={<Courses />} />
             <Route path='/course/:courseId' element={<Course />}></Route>
@@ -30,6 +33,42 @@ function App() {
       </div>
     </RecoilRoot>
   )
+}
+
+let InitUser = () => {
+  const setUser = useSetRecoilState(userState)
+  const init = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/admin/me`, {
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+      })
+
+      if (response.data.username) {
+        setUser({
+          isLoading: false,
+          userEmail: response.data.username
+        })
+      } else {
+        setUser({
+          isLoading: false,
+          userEmail: null
+        })
+      }
+    } catch (e) {
+
+      setUser({
+        isLoading: false,
+        userEmail: null
+      })
+    }
+  };
+  useEffect(() => {
+    init();
+  }, []);
+
+  return <></>
 }
 
 

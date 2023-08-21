@@ -3,10 +3,16 @@ import TextField from "@mui/material/TextField";
 import {Card, Typography} from "@mui/material";
 import {useState} from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
+import {useSetRecoilState} from "recoil";
+import {userState} from "../store/atoms/user.js";
+import {BASE_URL} from "../config.js";
 
 function Signin() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const navigate = useNavigate()
+    const setUser = useSetRecoilState(userState);
 
     return <div>
             <div style={{
@@ -22,9 +28,8 @@ function Signin() {
         <div style={{display: "flex", justifyContent: "center"}}>
             <Card varint={"outlined"} style={{width: 400, padding: 20}}>
                 <TextField
-                    onChange={(evant11) => {
-                        let elemt = evant11.target;
-                        setEmail(elemt.value);
+                    onChange={(event) => {
+                        setEmail(event.target.value);
                     }}
                     fullWidth={true}
                     label="Email"
@@ -46,16 +51,18 @@ function Signin() {
                     size={"large"}
                     variant="contained"
                     onClick={async() => {
-                        const response = await axios.post("http://localhost:3000/admin/signup", {
+                        const response = await axios.post(`http://localhost:3000/admin/signup`, {
                             username: email,
                             password: password
                         })
                         let data = response.data;
                         localStorage.setItem("token", data.token);
-                        window.location = "/"
+                        // window.location = "/"
+                        setUser({userEmail: email, isLoading: false})
+                        navigate("/courses")
                     }}
 
-                > SignIn</Button>
+                > Signup</Button>
             </Card>
         </div>
     </div>

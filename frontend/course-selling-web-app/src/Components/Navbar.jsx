@@ -1,27 +1,20 @@
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { isUserLoading } from "../store/selectors/isUserLoading";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { userState } from "../store/atoms/user.js";
+import { userEmailState } from "../store/selectors/userEmail"
 
-function Navbar() {
+function Appbar({ }) {
     const navigate = useNavigate()
-    const [userEmail, setUserEmail] = useState(null);
+    const userLoading = useRecoilValue(isUserLoading);
+    const userEmail = useRecoilValue(userEmailState);
+    const setUser = useSetRecoilState(userState);
 
-    useEffect(() => {
-        console.log("token - " + localStorage.getItem("token"));
-        fetch("http://localhost:3000/admin/me", {
-            method: "GET",
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem("token")
-            }
-        }).then((res) => {
-            res.json().then((data) => {
-                if (data.username) {
-                    setUserEmail(data.username)
-                }
-            })
-        })
-    }, []);
+    if (userLoading) {
+        return <></>
+    }
 
     if (userEmail) {
         return <div style={{
@@ -30,7 +23,9 @@ function Navbar() {
             padding: 4,
             zIndex: 1
         }}>
-            <div style={{ marginLeft: 10 }}>
+            <div style={{ marginLeft: 10, cursor: "pointer" }} onClick={() => {
+                navigate("/")
+            }}>
                 <Typography variant={"h6"}>Coursera</Typography>
             </div>
 
@@ -56,7 +51,10 @@ function Navbar() {
                         variant={"contained"}
                         onClick={() => {
                             localStorage.setItem("token", null);
-                            window.location = "/";
+                            setUser({
+                                isLoading: false,
+                                userEmail: null
+                            })
                         }}
                     >Logout</Button>
                 </div>
@@ -69,7 +67,9 @@ function Navbar() {
             padding: 4,
             zIndex: 1
         }}>
-            <div style={{ marginLeft: 10 }}>
+            <div style={{ marginLeft: 10, cursor: "pointer" }} onClick={() => {
+                navigate("/")
+            }}>
                 <Typography variant={"h6"}>Coursera</Typography>
             </div>
 
@@ -88,11 +88,11 @@ function Navbar() {
                         onClick={() => {
                             navigate("/login")
                         }}
-                    >Signin</Button>
+                    >Login</Button>
                 </div>
             </div>
         </div>
     }
 }
 
-export default Navbar;
+export default Appbar;
